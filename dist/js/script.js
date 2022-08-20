@@ -1,4 +1,3 @@
-let target = "osyicozy"
 
 // Function to generate random number 
 function getGenetik(min, max, len) { 
@@ -53,11 +52,20 @@ function mutasi(child, learning_rate){
 // console.log(randomNumber(32, 126, target.length));
 let panjang_populasi = 10
 let populasi = []
-
+let target
 
 function goAnalyis(){
-    // 3. bikin populasi
     
+    target = $("#query").val()
+    if(!target) {
+        return Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Your query is empty!',
+          })
+    }
+
+    // 3. bikin populasi
     for (let i = 0; i < panjang_populasi; i++) {
         // 1. bikin representasi genetiknya [32-126]
         let gen = getGenetik(32, 126, target.length)
@@ -68,34 +76,30 @@ function goAnalyis(){
             fv
         }
     }
-    
-    let statuss = true
     let counter = 0
-    // while (statuss) {
-    //     counter++
-        
-    //     // if(counter == 20){
-    //     //     statuss = false
-    //     // }
-        let inter = setInterval(() => {
-            algo_ga(function(params) {
-                $("#parent").html(params)
-            }, 
-                
-            function() {
-                clearInterval(inter)
-                console.log(populasi);
-                // alert()
-                    // statuss = false
+
+    $("#target").html(target)
+    let inter = setInterval(() => {
+        algo_ga(
+        function(params) {
+            $("#best-gen").html(params)
+            $("#regneration").html(++counter)
+            return Swal.fire({
+                icon: 'success',
+                toast: true,
+                position: 'top-end',   
+                showConfirmButton: false,
+                timer: 1500,
+                title: 'Yeey, I know what you mind!',
             })
-        }, 1);
-        console.log(counter);
-        
-    // }
-    
+        }, 
+        function() {
+            clearInterval(inter)
+        })
+    }, 0);
 }
 
-function algo_ga(cb_print, cb){
+function algo_ga(best_gen, done){
     
     // 4. melakukan seleksi
     
@@ -139,8 +143,8 @@ function algo_ga(cb_print, cb){
     // let new_populasi = populasi
     // console.log(new_populasi)
     // console.log(parseInt(populasi[0].fv));
-    cb_print(populasi[0].gen)
-    if(parseInt(populasi[0].fv) == 100) cb()
+    best_gen(populasi[0].gen)
+    if(parseInt(populasi[0].fv) == 100) done()
     
 }
 
