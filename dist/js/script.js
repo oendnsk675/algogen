@@ -77,7 +77,30 @@ function goAnalyis(){
         }
     }
     let counter = 0
+    let cond = true
 
+    // if u want more fast using generallooping, uncomment thus
+    // while (cond) {
+    //     algo_ga(
+    //     function(params) {
+    //         $("#best-gen").html(params)
+    //         $("#regneration").html(++counter)
+    //     }, 
+    //     function() {
+    //         // clearInterval(inter)
+    //         cond = false
+    //         return Swal.fire({
+    //             icon: 'success',
+    //             toast: true,
+    //             position: 'top-end',   
+    //             showConfirmButton: false,
+    //             timer: 1500,
+    //             title: 'Yeey, I know what you mind!',
+    //         })
+    //     })
+    // }
+
+    // if u want to see the procsess uncomment thus
     $("#target").html(target)
     let inter = setInterval(() => {
         algo_ga(
@@ -96,7 +119,7 @@ function goAnalyis(){
         function() {
             clearInterval(inter)
         })
-    }, 0);
+    }, 0000);
 }
 
 function algo_ga(best_gen, done){
