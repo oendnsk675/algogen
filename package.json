@@ -7,7 +7,7 @@
     "watch": "npx tailwindcss -i ./src/css/style.css -o ./dist/css/style.css --watch"
   },
   "keywords": [],
-  "author": "",
+  "author": "sayidina ahmadal qosoyi",
   "license": "ISC",
   "devDependencies": {
     "tailwindcss": "^3.1.8"
