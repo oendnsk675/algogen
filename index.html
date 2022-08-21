@@ -20,6 +20,7 @@
     />
     <link rel="shortcut icon" href="./dist/image/favicon.png" type="image/x-icon">
     <title>Algoritma Genetik</title>
+    <link rel="stylesheet" href="./dist/css/loader.css">
     <link rel="stylesheet" href="./dist/css/style.css">
 </head>
 <body class="w-full h-screen bg-gray-900 text-cyan-400 relative">
@@ -56,6 +57,11 @@
         <input type="text" id="query" class="w-1/2 smx:w-full outline-cyan-200 transition-all duration-300 p-3 border border-cyan-400 bg-cyan-900 mb-8 bg-opacity-40 font-semibold text-cyan-100" autofocus placeholder="What do you mind?">
 
         <button type="button" onclick="goAnalyis()" class="px-10 py-3 border border-cyan-400  text-cyan-400 font-semibold hover:bg-cyan-400 hover:text-gray-900 transition-all duration-300">Find Now!</button>
+
+        <div class="mt-5 flex items-center gap-3">
+            <input type="checkbox" id="process" onchange="change()" checked class="w-5 h-5">
+            <label for="process">See the process.</label>
+        </div>
         
         <div class="flex smx:flex-col smx:items-center gap-6 smx:gap-10 w-full justify-center mt-16">
 
@@ -93,6 +99,13 @@
     </div>
 
 
+    <div class="loader-div z-index-lowwer transition-all flex flex-col duration-300" style="opacity: 0;">
+        <span class="loader mb-5">
+            <span></span>
+            <span></span>
+        </span>
+        <div class="block font-semibold text-[#29c8bb] text-lg">Wait for a second</div>
+    </div>
     <script src="./dist/js/jquery-slim.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="./dist/js/script.js"></script>

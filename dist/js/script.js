@@ -53,6 +53,7 @@ function mutasi(child, learning_rate){
 let panjang_populasi = 10
 let populasi = []
 let target
+let process = false // set to false if u want more fast, but you can'nt see the process😎
 
 function goAnalyis(){
     
@@ -77,49 +78,73 @@ function goAnalyis(){
         }
     }
     let counter = 0
+    
     let cond = true
-
-    // if u want more fast using generallooping, uncomment thus
-    // while (cond) {
-    //     algo_ga(
-    //     function(params) {
-    //         $("#best-gen").html(params)
-    //         $("#regneration").html(++counter)
-    //     }, 
-    //     function() {
-    //         // clearInterval(inter)
-    //         cond = false
-    //         return Swal.fire({
-    //             icon: 'success',
-    //             toast: true,
-    //             position: 'top-end',   
-    //             showConfirmButton: false,
-    //             timer: 1500,
-    //             title: 'Yeey, I know what you mind!',
-    //         })
-    //     })
-    // }
-
-    // if u want to see the procsess uncomment thus
     $("#target").html(target)
-    let inter = setInterval(() => {
-        algo_ga(
-        function(params) {
-            $("#best-gen").html(params)
-            $("#regneration").html(++counter)
-            return Swal.fire({
-                icon: 'success',
-                toast: true,
-                position: 'top-end',   
-                showConfirmButton: false,
-                timer: 1500,
-                title: 'Yeey, I know what you mind!',
+    if(process){
+        let inter = setInterval(() => {
+            algo_ga(
+            function(params) {
+                $("#best-gen").html(params)
+                $("#regneration").html(++counter)
+                return Swal.fire({
+                    icon: 'success',
+                    toast: true,
+                    position: 'top-end',   
+                    showConfirmButton: false,
+                    timer: 1500,
+                    title: 'Yeey, I know what you mind!',
+                })
+            }, 
+            function() {
+                clearInterval(inter)
             })
-        }, 
-        function() {
-            clearInterval(inter)
+        }, 0);
+    }else{
+        loader(true, function(){
+            setTimeout(() => {
+                while (cond) {
+                algo_ga(
+                    function(params) {
+                        $("#best-gen").html(params)
+                        $("#regneration").html(++counter)
+                    }, 
+                    function() {
+                        // clearInterval(inter)
+                        loader(false)
+                        cond = false
+                    })
+                }
+            }, 500);
         })
-    }, 0000);
+        
+    }
+
+}
+
+function loadCheckProcessCondition(){
+    if(process){
+        $('#process').prop("checked", true) 
+    }
+}
+
+function change(){
+    if($('#process').is(':checked')){
+        process = true
+    } else{
+        process = false
+    }
+}
+
+function loader(cond, cb = false){
+    if(cond){
+        $(".loader-div").css("opacity", '1')
+        $(".loader-div").removeClass("z-index-lowwer")
+    }else{
+        $(".loader-div").css("opacity", '0')
+        $(".loader-div").addClass("z-index-lowwer")
+    }
+    if(cb) cb()
 }
 
 function algo_ga(best_gen, done){
