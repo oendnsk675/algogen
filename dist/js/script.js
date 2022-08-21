@@ -53,7 +53,8 @@ function mutasi(child, learning_rate){
 let panjang_populasi = 10
 let populasi = []
 let target
-let process = false // set to false if u want more fast, but you can'nt see the process😎
+let process = true // set to false if u want more fast, but you can'nt see the process😎
+loadCheckProcessCondition()
 
 function goAnalyis(){
     
